@@ -1,0 +1,192 @@
+﻿@page "/todo-dashboard"
+@rendermode InteractiveServer
+
+@using TaskFlowDashboard.Models
+@using TaskFlowDashboard.Data
+@inject AppDbContext db
+
+<PageTitle>TaskFlow Dashboard</PageTitle>
+
+<div class="dashboard-wrapper">
+
+    <div class="dashboard-header">
+        <h1>TaskFlow Dashboard</h1>
+        <p>Manage your tasks efficiently and stay productive.</p>
+    </div>
+
+    <!-- ADD TASK -->
+    <div class="task-input-section">
+
+        <InputText @bind-Value="newTask"
+                   placeholder="Enter your task..."
+                   class="task-input" />
+
+        <button class="add-task-btn" @onclick="AddTask">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+            </svg>
+            Add Task
+        </button>
+
+        <button class="btn btn-danger"
+                @onclick="ClearAllTasks">
+            Clear All
+        </button>
+
+    </div>
+
+    <!-- TASK LIST -->
+    <div class="task-list">
+
+        @if (tasks.Count == 0)
+        {
+            <div class="empty-state">
+                No tasks available
+            </div>
+        }
+        else
+        {
+            @foreach (var task in tasks)
+            {
+                <div class="task-item">
+
+                    @if (editingTaskId == task.Id)
+                    {
+                        <!-- EDIT MODE -->
+                        <InputText @bind-Value="editText"
+                                   class="task-input" />
+
+                        <div class="action-buttons">
+
+                            <button class="btn-save"
+                                    @onclick="() => UpdateTask(task.Id)">
+                                Save
+                            </button>
+
+                            <button class="btn-cancel"
+                                    @onclick="CancelEdit">
+                                Cancel
+                            </button>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <!-- VIEW MODE -->
+                        <span class="task-title">@task.Title</span>
+
+                        <div class="action-buttons">
+
+                            <button class="btn-edit"
+                                    @onclick="() => StartEdit(task)">
+                                Edit
+                            </button>
+
+                            <button class="btn-delete"
+                                    @onclick="() => DeleteTask(task.Id)">
+                                Delete
+                            </button>
+
+                        </div>
+                    }
+
+                </div>
+            }
+        }
+
+    </div>
+
+</div>
+
+@code {
+
+    // DATA
+    private string newTask = "";
+    private List<TodoTask> tasks = new();
+
+    private int? editingTaskId = null;
+    private string editText = "";
+
+    protected override void OnInitialized()
+    {
+        LoadTasks();
+    }
+
+    private void LoadTasks()
+    {
+        tasks = db.Tasks.ToList();
+    }
+
+    // ADD
+    private void AddTask()
+    {
+        if (!string.IsNullOrWhiteSpace(newTask))
+        {
+            db.Tasks.Add(new TodoTask
+                {
+                    Title = newTask,
+                    IsCompleted = false
+                });
+
+            db.SaveChanges();
+
+            newTask = "";
+            LoadTasks();
+        }
+    }
+
+    // DELETE
+    private void DeleteTask(int id)
+    {
+        var task = db.Tasks.Find(id);
+
+        if (task != null)
+        {
+            db.Tasks.Remove(task);
+            db.SaveChanges();
+            LoadTasks();
+        }
+    }
+
+    // EDIT START
+    private void StartEdit(TodoTask task)
+    {
+        editingTaskId = task.Id;
+        editText = task.Title;
+    }
+
+    // CANCEL
+    private void CancelEdit()
+    {
+        editingTaskId = null;
+        editText = "";
+    }
+
+    // UPDATE
+    private void UpdateTask(int id)
+    {
+        var task = db.Tasks.Find(id);
+
+        if (task != null)
+        {
+            task.Title = editText;
+            db.SaveChanges();
+
+            editingTaskId = null;
+            editText = "";
+
+            LoadTasks();
+        }
+    }
+
+    // 🔥 CLEAR ALL TASKS (NEW)
+    private void ClearAllTasks()
+    {
+        var allTasks = db.Tasks.ToList();
+
+        db.Tasks.RemoveRange(allTasks);
+        db.SaveChanges();
+
+        LoadTasks();
+    }
+}

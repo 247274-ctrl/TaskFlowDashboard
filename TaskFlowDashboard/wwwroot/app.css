@@ -1,0 +1,263 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #f1f5f9;
+}
+
+/* MAIN LAYOUT */
+.page {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background-color: #111827 !important;
+    color: white;
+    min-height: 100vh;
+    box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+}
+
+/* SIDEBAR HEADER */
+.sidebar-header {
+    padding: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #60a5fa;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* NAVIGATION */
+.nav-container {
+    padding: 20px 12px;
+}
+
+/* NAV ITEMS */
+.nav-item {
+    display: block;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    color: #d1d5db;
+    text-decoration: none;
+    transition: 0.3s;
+    font-weight: 500;
+}
+
+    /* HOVER */
+    .nav-item:hover {
+        background-color: #111827 !important;
+        color: white;
+        transform: translateX(5px);
+    }
+
+    /* ACTIVE */
+    .nav-item.active {
+        background: linear-gradient(90deg, #2563eb, #7c3aed) !important;  
+        color: white;
+    }
+
+/* TOP ROW */
+.top-row {
+    height: 70px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed) !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 25px;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+/* CONTENT */
+.content {
+    flex: 1;
+    padding: 40px;
+}
+
+/* DASHBOARD */
+.dashboard-wrapper {
+    width: 100%;
+}
+
+/* HEADER */
+.dashboard-header h1 {
+    font-size: 36px;
+    color: #111827;
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    color: #6b7280;
+    margin-bottom: 30px;
+}
+
+/* CARD */
+.task-card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 750px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.08);
+}
+
+/* INPUT SECTION */
+.task-input-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+/* INPUT */
+.task-input {
+    flex: 1;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+}
+
+    .task-input:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+/* ADD BUTTON */
+.add-task-btn {
+    padding: 14px 24px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #2563eb, #7c3aed);
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+    .add-task-btn:hover {
+        transform: translateY(-2px);
+    }
+
+/* TASK LIST */
+.task-list {
+    margin-top: 20px;
+}
+
+/* TASK ITEM */
+.task-item {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    border-left: 5px solid #2563eb;
+    color: #111827;
+    font-weight: 500;
+}
+
+/* EMPTY */
+.empty-state {
+    text-align: center;
+    color: #9ca3af;
+    padding: 30px;
+}
+
+/* CLEAR BUTTON */
+.clear-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background: #dc2626;
+    color: white;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+    .clear-btn:hover {
+        background: #b91c1c;
+    }
+
+.task-item {
+    background: #f8f9fa;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-input {
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* ADD */
+.add-task-btn {
+    background: #6366f1;
+    color: white;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* EDIT */
+.btn-edit {
+    background: #2563eb;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* DELETE */
+.btn-delete {
+    background: #ef4444;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* SAVE */
+.btn-save {
+    background: #22c55e;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+}
+
+/* CANCEL */
+.btn-cancel {
+    background: #f43f5e;
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 8px;
+}
+.clear-all-btn {
+    background-color: #dc3545; /* Bootstrap danger red */
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    margin-left: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+    .clear-all-btn:hover {
+        background-color: #b02a37;
+    }
